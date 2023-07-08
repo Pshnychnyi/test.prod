@@ -1,0 +1,822 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/": {},
+        "/api/cars": {
+            "get": {
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Get all cars",
+                "parameters": [
+                    {
+                        "name": "make",
+                        "in": "query",
+                        "description": "Parameter for selecting cars by the make criterion",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": "460"
+                        },
+                        "example": "460"
+                    },
+                    {
+                        "name": "model",
+                        "in": "query",
+                        "description": "Parameter for selecting tasks by the model criterion",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1798"
+                        },
+                        "example": "1798"
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Parameter for sorting cars",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "id_desc"
+                        },
+                        "example": "id_desc"
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Parameter for selecting tasks by the search query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "Supra"
+                        },
+                        "example": "Supra"
+                    },
+                    {
+                        "name": "year",
+                        "in": "query",
+                        "description": "Parameter for selecting tasks by year",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "2017"
+                        },
+                        "example": "2017"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": []
+                                        },
+                                        "data": {
+                                            "required": [
+                                                "search",
+                                                "items"
+                                            ],
+                                            "properties": {
+                                                "search": {
+                                                    "type": "string",
+                                                    "nullable": true
+                                                },
+                                                "items": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "supra"
+                                                            },
+                                                            "number": {
+                                                                "type": "string",
+                                                                "example": "asd323443"
+                                                            },
+                                                            "color": {
+                                                                "type": "string",
+                                                                "example": "Red"
+                                                            },
+                                                            "make": {
+                                                                "required": [
+                                                                    "id",
+                                                                    "title"
+                                                                ],
+                                                                "properties": {
+                                                                    "id": {
+                                                                        "type": "integer",
+                                                                        "example": 460
+                                                                    },
+                                                                    "title": {
+                                                                        "type": "string",
+                                                                        "example": "FORD"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            },
+                                                            "model": {
+                                                                "required": [
+                                                                    "id",
+                                                                    "title"
+                                                                ],
+                                                                "properties": {
+                                                                    "id": {
+                                                                        "type": "integer",
+                                                                        "example": 1798
+                                                                    },
+                                                                    "title": {
+                                                                        "type": "string",
+                                                                        "example": "Escape"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            },
+                                                            "year": {
+                                                                "type": "string",
+                                                                "example": "2015"
+                                                            },
+                                                            "created": {
+                                                                "type": "string",
+                                                                "example": "06.07.2023"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NOK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "false"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": []
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": []
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Create new car",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "properties": {
+                                            "name": {
+                                                "type": "string",
+                                                "example": "Car Name"
+                                            },
+                                            "number": {
+                                                "type": "string",
+                                                "example": "Car description"
+                                            },
+                                            "color": {
+                                                "type": "string",
+                                                "example": "Red"
+                                            },
+                                            "vin": {
+                                                "type": "string",
+                                                "example": "5NPE24AFXFH183476"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "true"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": []
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "item": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer",
+                                                            "example": 2
+                                                        },
+                                                        "name": {
+                                                            "type": "string",
+                                                            "example": "Mazda"
+                                                        },
+                                                        "number": {
+                                                            "type": "string",
+                                                            "example": "AA7777BN"
+                                                        },
+                                                        "color": {
+                                                            "type": "string",
+                                                            "example": "Red"
+                                                        },
+                                                        "make": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "integer",
+                                                                    "example": 498
+                                                                },
+                                                                "title": {
+                                                                    "type": "string",
+                                                                    "example": "HYUNDAI"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        },
+                                                        "model": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "integer",
+                                                                    "example": 2459
+                                                                },
+                                                                "title": {
+                                                                    "type": "string",
+                                                                    "example": "Sonata"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        },
+                                                        "year": {
+                                                            "type": "string",
+                                                            "example": "2015"
+                                                        },
+                                                        "created": {
+                                                            "type": "string",
+                                                            "example": "07.07.2023"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NOK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "false"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": []
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": []
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "false"
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "errors": {
+                                                    "type": "object",
+                                                    "example": {
+                                                        "name": [
+                                                            "The name field is required."
+                                                        ],
+                                                        "number": [
+                                                            "The number field is required."
+                                                        ],
+                                                        "color": [
+                                                            "The color field is required."
+                                                        ],
+                                                        "vin": [
+                                                            "The vin field is required."
+                                                        ]
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/cars/{car}": {
+            "put": {
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Update car",
+                "parameters": [
+                    {
+                        "name": "car",
+                        "in": "path",
+                        "description": "Parameter for selecting car by id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "properties": {
+                                            "name": {
+                                                "type": "string",
+                                                "example": "Car Name"
+                                            },
+                                            "number": {
+                                                "type": "string",
+                                                "example": "Car description"
+                                            },
+                                            "color": {
+                                                "type": "string",
+                                                "example": "Red"
+                                            },
+                                            "vin": {
+                                                "type": "string",
+                                                "example": "5NPE24AFXFH183476"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "true"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": []
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "item": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer",
+                                                            "example": 2
+                                                        },
+                                                        "name": {
+                                                            "type": "string",
+                                                            "example": "Mazda"
+                                                        },
+                                                        "number": {
+                                                            "type": "string",
+                                                            "example": "AA7777BN"
+                                                        },
+                                                        "color": {
+                                                            "type": "string",
+                                                            "example": "Red"
+                                                        },
+                                                        "make": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "integer",
+                                                                    "example": 498
+                                                                },
+                                                                "title": {
+                                                                    "type": "string",
+                                                                    "example": "HYUNDAI"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        },
+                                                        "model": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "integer",
+                                                                    "example": 2459
+                                                                },
+                                                                "title": {
+                                                                    "type": "string",
+                                                                    "example": "Sonata"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        },
+                                                        "year": {
+                                                            "type": "string",
+                                                            "example": "2015"
+                                                        },
+                                                        "created": {
+                                                            "type": "string",
+                                                            "example": "07.07.2023"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NOK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "false"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": []
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": []
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "false"
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "errors": {
+                                                    "type": "object",
+                                                    "example": {
+                                                        "vin": [
+                                                            "The vin is invalid."
+                                                        ]
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Delete car",
+                "parameters": [
+                    {
+                        "name": "car",
+                        "in": "path",
+                        "description": "Parameter for deleting car by id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "true"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": []
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "item": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer",
+                                                            "example": 2
+                                                        },
+                                                        "name": {
+                                                            "type": "string",
+                                                            "example": "Mazda"
+                                                        },
+                                                        "number": {
+                                                            "type": "string",
+                                                            "example": "AA7777BN"
+                                                        },
+                                                        "color": {
+                                                            "type": "string",
+                                                            "example": "Red"
+                                                        },
+                                                        "make": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "integer",
+                                                                    "example": 498
+                                                                },
+                                                                "title": {
+                                                                    "type": "string",
+                                                                    "example": "HYUNDAI"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        },
+                                                        "model": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "integer",
+                                                                    "example": 2459
+                                                                },
+                                                                "title": {
+                                                                    "type": "string",
+                                                                    "example": "Sonata"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        },
+                                                        "year": {
+                                                            "type": "string",
+                                                            "example": "2015"
+                                                        },
+                                                        "created": {
+                                                            "type": "string",
+                                                            "example": "07.07.2023"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NOK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "false"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": []
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": []
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/cars/autocomplete/{make}": {
+            "get": {
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Get all models by car manufacturer",
+                "parameters": [
+                    {
+                        "name": "make",
+                        "in": "path",
+                        "description": "Parameter for geting all car models",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Ford"
+                        },
+                        "example": "Frod"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": []
+                                        },
+                                        "data": {
+                                            "required": [
+                                                "count",
+                                                "items"
+                                            ],
+                                            "properties": {
+                                                "count": {
+                                                    "type": "integer",
+                                                    "example": 166
+                                                },
+                                                "items": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1778
+                                                            },
+                                                            "title": {
+                                                                "type": "string",
+                                                                "example": "Crown Victoria"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NOK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "false"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": []
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": []
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    }
+}

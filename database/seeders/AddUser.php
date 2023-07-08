@@ -14,7 +14,7 @@ class AddUser extends Seeder
      */
     public function run(): void
     {
-        Db::table('permission_role')->insert([
+        Db::table('users')->insert([
             [
                 'login' => 'Admin',
                 'name' => 'Admin',

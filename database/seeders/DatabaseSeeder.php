@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +13,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        if (!DB::table('permissions')->exists()) {
+            $this->call(AddPermissions::class);
+        }
+
+        if (!DB::table('roles')->exists()) {
+            $this->call(AddRoles::class);
+        }
+
+        if (!DB::table('permission_role')->exists()) {
+            $this->call(AddPermissionRole::class);
+        }
+
+        if (!DB::table('users')->exists()) {
+            $this->call(AddUser::class);
+        }
+
+        if (!DB::table('role_user')->exists()) {
+            $this->call(AddRoleUser::class);
+        }
     }
 }
